@@ -29,4 +29,28 @@ public class GildedRoseTest {
 		//assert quality has decreased by one
 		assertEquals("Failed quality for Dexterity Vest", 19, quality);
 	}
+	
+	@Test
+	public void testItem() {
+		GildedRose inn = new GildedRose();
+		inn.setItem(new Item("+5 Dexterity Vest", 10, 20));
+		
+		List<Item> items = inn.getItems();
+		int quality = items.get(0).getQuality();
+		//just testing out
+		
+	}
+	
+	
+	@Test
+	public void hasSellInValue() {
+		
+		GildedRose inn = new GildedRose();
+		inn.setItem(new Item("+5 Dexterity Vest", 10, 20));
+		inn.oneDay();
+		List<Item> items = inn.getItems();
+		
+		assertEquals(9, items.get(0).getSellIn());
+		assertEquals(19, items.get(0).getQuality());
+	}
 }
