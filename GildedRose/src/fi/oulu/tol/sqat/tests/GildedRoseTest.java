@@ -88,12 +88,12 @@ public class GildedRoseTest {
 	
 	@Test
 	public void testNormalItem_QualityNeverOver50 () {
-		GildedRose inn = new GildedRose();
-		inn.setItem(new Item("Aged Brie", 5, 50));
-		inn.oneDay();
-		List<Item> items = inn.getItems();
-		
-		assertEquals(50, items.get(0).getQuality());
+	    GildedRose inn = new GildedRose();
+	    inn.setItem(new Item("Aged Brie", 5, 50));
+	    inn.oneDay();
+	    List<Item> items = inn.getItems();
+
+	    assertEquals(50, items.get(0).getQuality());
 	}
 	
 	@Test
@@ -121,7 +121,7 @@ public class GildedRoseTest {
 	@Test
 	public void testBackstagePasses_Increase2WhenSellIn10 () {
 	    GildedRose inn = new GildedRose();
-	    inn.setItem(new Item("Backstage passes to a TAFKAL80ETC concert", 10, 49)); // sellIn = 10, quality = 49
+	    inn.setItem(new Item("Backstage passes to a TAFKAL80ETC concert", 10, 49));
 	    inn.oneDay();
 	    List<Item> items = inn.getItems();
 
@@ -173,5 +173,15 @@ public class GildedRoseTest {
 	        assertEquals(19, items.get(i).getQuality());
 	    }
 	}
-	
+
+	@Test
+	public void testBackstagePasses_QualityAtExactBoundaries() {
+	    GildedRose inn = new GildedRose();
+	    inn.setItem(new Item("Backstage passes to a TAFKAL80ETC concert", 1, 49));
+	    inn.oneDay();
+	    List<Item> items = inn.getItems();
+
+	    assertEquals(0, items.get(0).getSellIn());
+	    assertEquals(50, items.get(0).getQuality());
+	}
 }
