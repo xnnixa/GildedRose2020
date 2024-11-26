@@ -140,5 +140,38 @@ public class GildedRoseTest {
 	    assertEquals(50, items.get(0).getQuality());
 	}
 	
+	@Test
+	public void testUpdateQuality_NoItems() {
+		GildedRose inn = new GildedRose();
+		inn.oneDay();
+		
+		assertTrue(inn.getItems().isEmpty());
+	}
+	
+	@Test
+	public void testUpdateQuality_OneItem() {
+	    GildedRose inn = new GildedRose();
+	    inn.setItem(new Item("+5 Dexterity Vest", 10, 20));
+	    inn.oneDay();
+	    List<Item> items = inn.getItems();
+	    
+	    assertEquals(9, items.get(0).getSellIn());
+	    assertEquals(19, items.get(0).getQuality());
+	}
+	
+	@Test
+	public void testUpdateQuality_LargeNumberOfItems() {
+	    GildedRose inn = new GildedRose();
+	    for (int i = 0; i < 1000; i++) {
+	        inn.setItem(new Item("Normal Item " + i, 10, 20));
+	    }
+	    inn.oneDay();
+
+	    List<Item> items = inn.getItems();
+	    for (int i = 0; i < 1000; i++) {
+	        assertEquals(9, items.get(i).getSellIn());
+	        assertEquals(19, items.get(i).getQuality());
+	    }
+	}
 	
 }
